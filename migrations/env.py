@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 from src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
-from src.db.db import res_base
+from src.db.db import res_metadata
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -27,7 +27,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = res_base
+target_metadata = res_metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

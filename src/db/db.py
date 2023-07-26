@@ -18,7 +18,7 @@ class Base(DeclarativeBase):
     pass
 
 
-res_base = [task_status_base.metadata, task_base.metadata, Base.metadata]
+res_metadata = [task_status_base.metadata, task_base.metadata, Base.metadata]
 
 
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
