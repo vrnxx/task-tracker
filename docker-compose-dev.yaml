@@ -1,0 +1,16 @@
+version: '3.0'
+services:
+  dev_db:
+    container_name: 'ttracker_db'
+    image: postgres:14-alpine
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    ports:
+      - '5433:5432'
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
