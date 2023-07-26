@@ -18,5 +18,4 @@ class TaskSchema(BaseModel):
 class TaskAddSchema(BaseModel):
     title: str
     description: Optional[str] = None
-    time_create: datetime = datetime.utcnow
     status_id: int
