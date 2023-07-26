@@ -1,11 +1,9 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
-from sqlalchemy import select, insert
-from sqlalchemy.ext.asyncio import AsyncSession
-from src.schemas.task_schema import TaskAddSchema, TaskSchema
-from src.db.db import get_async_session
-from src.models.task import Task
+from src.services.task_services import TaskService
+from src.api.dependencies import task_service
+from src.schemas.task_schema import TaskAddSchema
 
 router = APIRouter(
     prefix='/task',
@@ -13,19 +11,15 @@ router = APIRouter(
 )
 
 
-@router.get('/', response_model=list[TaskSchema])
-async def get_tasks(session: Annotated[AsyncSession, Depends(get_async_session)]):
-    query = select(Task)
-    res = await session.scalars(query)
-    tasks = res.all()
+@router.get('/')
+async def get_tasks(task_serv: Annotated[TaskService, Depends(task_service)]):
+    tasks = await task_serv.get_tasks()
     return tasks
 
 
-@router.post('/')
-async def create_new_task(new_task: TaskAddSchema,
-                          session: Annotated[AsyncSession, Depends(get_async_session)]):
-    stmt = insert(Task).values(new_task.model_dump()).returning(Task)
-    res = await session.execute(stmt)
-    await session.commit()
-    created_task = [t[0].to_read_model() for t in res]
-    return {'status': 'successful', 'data': created_task}
+@router.post("")
+async def add_task(
+        task: TaskAddSchema,
+        tasks_service: Annotated[TaskService, Depends(task_service)]):
+    new_task = await tasks_service.add_task(task)
+    return new_task
