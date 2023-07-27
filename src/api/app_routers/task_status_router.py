@@ -1,11 +1,10 @@
 from typing import Annotated
-from fastapi import APIRouter, Depends
-from sqlalchemy import insert, select
-from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.db.db import get_async_session
-from src.schemas.task_status_schema import TaskStatusAddSchema, TaskStatusSchema
-from src.models.task_status import TaskStatus
+from fastapi import APIRouter, Depends
+
+from src.api.dependencies import task_status_service
+from src.schemas.task_status_schema import TaskStatusAddSchema
+from src.services.task_status_services import TaskStatusService
 
 router = APIRouter(
     prefix='/status',
@@ -14,19 +13,15 @@ router = APIRouter(
 
 
 @router.get('/')
-async def get_all_statuses(session: Annotated[AsyncSession,
-Depends(get_async_session)]) -> list[TaskStatusSchema]:
-    query = select(TaskStatus)
-    res = await session.scalars(query)
-    statuses = res.all()
-    return list(statuses)
+async def get_all_statuses(task_status_serv:
+Annotated[TaskStatusService, Depends(task_status_service)]):
+    tasks = await task_status_serv.get_all_statuses()
+    return tasks
 
 
 @router.post('/')
-async def create_new_status(new_status: TaskStatusAddSchema,
-session: Annotated[AsyncSession, Depends(get_async_session)]) -> dict:
-    stmt = insert(TaskStatus).values(new_status.model_dump()).returning(TaskStatus)
-    res = await session.execute(stmt)
-    await session.commit()
-    created_status = [r[0].to_read_model() for r in res]
-    return {'status add': created_status}
+async def add_new_status(new_status: TaskStatusAddSchema,
+                         task_status_serv: Annotated[TaskStatusService,
+                         Depends(task_status_service)]):
+    created_status = await task_status_serv.add_status(new_status)
+    return created_status

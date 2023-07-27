@@ -1,14 +1,22 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
-from src.services.task_services import TaskService
+
 from src.api.dependencies import task_service
 from src.schemas.task_schema import TaskAddSchema
+from src.services.task_services import TaskService
 
 router = APIRouter(
     prefix='/task',
     tags=['task']
 )
+
+
+@router.get('/{task_id}')
+async def get_task(task_id: int,
+                   task_serv: Annotated[TaskService, Depends(task_service)]):
+    task = await task_serv.get_task(task_id)
+    return task
 
 
 @router.get('/')
@@ -17,9 +25,17 @@ async def get_tasks(task_serv: Annotated[TaskService, Depends(task_service)]):
     return tasks
 
 
-@router.post("")
+@router.post("/")
 async def add_task(
         task: TaskAddSchema,
-        tasks_service: Annotated[TaskService, Depends(task_service)]):
-    new_task = await tasks_service.add_task(task)
+        task_serv: Annotated[TaskService, Depends(task_service)]):
+    new_task = await task_serv.add_task(task)
     return new_task
+
+
+@router.delete('/')
+async def delete_task(task_id: int,
+                      task_serv: Annotated[TaskService,
+                      Depends(task_service)]):
+    deleted_id = await task_serv.delete_task(task_id)
+    return deleted_id

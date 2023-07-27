@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Mapped, DeclarativeBase, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from src.schemas.task_status_schema import TaskStatusSchema
 
