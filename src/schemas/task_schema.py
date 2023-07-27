@@ -10,6 +10,7 @@ class TaskSchema(BaseModel):
     description: Optional[str] = None
     time_create: datetime
     status_id: int
+    owner: str
 
     class Config:
         from_attributes = True
@@ -19,3 +20,4 @@ class TaskAddSchema(BaseModel):
     title: str
     description: Optional[str] = None
     status_id: int
+    owner: str

@@ -19,6 +19,7 @@ class Task(Base):
     description: Mapped[str] = mapped_column(nullable=True)
     time_create: Mapped[datetime] = mapped_column(default=datetime.utcnow)
     status_id: Mapped[int] = mapped_column(ForeignKey(TaskStatus.id))
+    owner: Mapped[str] = mapped_column(nullable=True)
 
     status = relationship(TaskStatus)
 
