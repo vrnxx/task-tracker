@@ -1,10 +1,10 @@
 from src.schemas.task_status_schema import TaskStatusAddSchema
-from src.utils.interfaces.abstract_repository import AbstractRepository
+from src.db.dao.interfaces.abstract_dao import AbstractDAO
 
 
 class TaskStatusService:
-    def __init__(self, task_status_repo: AbstractRepository):
-        self.task_status_repo = task_status_repo()
+    def __init__(self, task_status_repo: AbstractDAO):
+        self.task_status_repo: AbstractDAO = task_status_repo()
 
     async def get_all_statuses(self):
         tasks = await self.task_status_repo.find_all()

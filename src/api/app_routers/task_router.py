@@ -33,6 +33,15 @@ async def add_task(
     return new_task
 
 
+@router.put('/{task_id}')
+async def update_task(
+        task_id: int,
+        new_data: TaskAddSchema,
+        task_serv: Annotated[TaskService, Depends(task_service)]):
+    updated_task = await task_serv.update_task(task_id, new_data)
+    return updated_task
+
+
 @router.delete('/')
 async def delete_task(task_id: int,
                       task_serv: Annotated[TaskService,
