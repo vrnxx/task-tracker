@@ -45,5 +45,5 @@ class SQLAlchemyRepository(AbstractRepository):
             except NoResultFound:
                 raise HTTPException(
                     status_code=404,
-                    detail=f'Unable to delete task with id {obj_id}. Not found'
+                    detail=f'Unable to delete object with id {obj_id}. Not found'
                 )
