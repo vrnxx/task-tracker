@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class TaskSchema(BaseModel):
@@ -19,5 +19,5 @@ class TaskSchema(BaseModel):
 class TaskAddSchema(BaseModel):
     title: str
     description: Optional[str] = None
-    status_id: int
+    status_id: int = Field(default=1)
     owner: str

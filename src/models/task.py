@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
-from src.models.task_status import TaskStatus
+from src.models.status import Status
 from src.schemas.task_schema import TaskSchema
 
 
@@ -18,10 +18,10 @@ class Task(Base):
     title: Mapped[str] = mapped_column(nullable=False)
     description: Mapped[str] = mapped_column(nullable=True)
     time_create: Mapped[datetime] = mapped_column(default=datetime.utcnow)
-    status_id: Mapped[int] = mapped_column(ForeignKey(TaskStatus.id))
+    status_id: Mapped[int] = mapped_column(ForeignKey(Status.id))
     owner: Mapped[str] = mapped_column(nullable=True)
 
-    status = relationship(TaskStatus)
+    status = relationship(Status)
 
     def to_read_model(self) -> TaskSchema:
         return TaskSchema(

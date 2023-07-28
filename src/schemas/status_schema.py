@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class TaskStatusSchema(BaseModel):
+class StatusSchema(BaseModel):
     id: int
     title: str
 
@@ -9,5 +9,5 @@ class TaskStatusSchema(BaseModel):
         from_attributes = True
 
 
-class TaskStatusAddSchema(BaseModel):
+class StatusAddSchema(BaseModel):
     title: str
