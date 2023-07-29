@@ -3,7 +3,8 @@ from src.db.db import async_session_maker
 from src.db.dao.interfaces.abstract_dao import AbstractDAO
 from src.models.status import Status
 from src.schemas.status_schema import StatusSchema
-from src.exceptions.status_exceptions import StatusNotFoundError
+# from src.exceptions.status_exceptions import StatusNotFoundError
+from src.utils.exceptions import StatusNotFoundError
 
 
 class StatusDAO(AbstractDAO):

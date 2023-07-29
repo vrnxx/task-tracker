@@ -3,8 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from src.api.routers import routers
-from src.exceptions.status_exceptions import StatusNotFoundError
-from src.exceptions.task_exceptions import TaskNotFoundError
+from src.utils.exceptions import StatusNotFoundError, TaskNotFoundError
 
 app = FastAPI(
     title='t_tracker',

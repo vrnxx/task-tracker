@@ -2,8 +2,8 @@ from sqlalchemy import select, insert, update, delete
 from src.db.dao.interfaces.abstract_dao import AbstractDAO
 from src.models.task import Task
 from src.db.db import async_session_maker
-from src.exceptions.task_exceptions import TaskNotFoundError
 from src.schemas.task_schema import TaskSchema
+from src.utils.exceptions import TaskNotFoundError
 
 
 class TaskDAO(AbstractDAO):

@@ -11,6 +11,7 @@ class TaskSchema(BaseModel):
     time_create: datetime
     status_id: int
     owner: str
+    worker: str
 
     class Config:
         from_attributes = True

@@ -8,7 +8,7 @@ from src.services.status_services import TaskStatusService
 
 router = APIRouter(
     prefix='/status',
-    tags=['task status']
+    tags=['status']
 )
 
 
@@ -45,7 +45,7 @@ async def delete_status(status_id: int,
 
 @router.put('/{status_id}')
 async def update_status(status_id: int,
-                         new_status: StatusAddSchema,
-                         status_service: Annotated[TaskStatusService, Depends(status_service)]):
+                        new_status: StatusAddSchema,
+                        status_service: Annotated[TaskStatusService, Depends(status_service)]):
     updated_status = await status_service.update_status(status_id, new_status)
     return updated_status

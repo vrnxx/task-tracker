@@ -1,10 +1,7 @@
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 
 from src.schemas.status_schema import StatusSchema
-
-
-class Base(DeclarativeBase):
-    ...
+from src.models.base import Base
 
 
 class Status(Base):
