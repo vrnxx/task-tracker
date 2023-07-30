@@ -1,5 +1,5 @@
-from src.schemas.task_schema import TaskAddSchema
 from src.db.dao.interfaces.abstract_dao import AbstractDAO
+from src.schemas.task_schema import TaskAddSchema
 
 
 class TaskService:

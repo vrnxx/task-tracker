@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Mapped, mapped_column
 
-from src.schemas.status_schema import StatusSchema
 from src.models.base import Base
+from src.models.dto.status import StatusDto
 
 
 class Status(Base):
@@ -10,8 +10,8 @@ class Status(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     title: Mapped[str] = mapped_column(nullable=False, index=True)
 
-    def to_read_model(self) -> StatusSchema:
-        return StatusSchema(
+    def to_dto(self) -> StatusDto:
+        return StatusDto(
             id=self.id,
             title=self.title
         )

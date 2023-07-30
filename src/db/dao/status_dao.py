@@ -1,15 +1,16 @@
-from sqlalchemy import select, insert, delete, update
-from src.db.db import async_session_maker
+from sqlalchemy import delete, insert, select, update
+
 from src.db.dao.interfaces.abstract_dao import AbstractDAO
+from src.db.db import async_session_maker
+from src.models.dto.status import StatusDto
 from src.models.status import Status
-from src.schemas.status_schema import StatusSchema
 from src.utils.exceptions import StatusNotFoundError
 
 
 class StatusDAO(AbstractDAO):
     model = Status
 
-    async def add_one(self, status_data: dict) -> StatusSchema:
+    async def add_one(self, status_data: dict) -> StatusDto:
         """
         Add a new status to the database
 
@@ -20,12 +21,12 @@ class StatusDAO(AbstractDAO):
             stmt = (insert(self.model).
                     values(**status_data).
                     returning(self.model))
-            new_status = await session.execute(stmt)
+            new_status = await session.scalar(stmt)
             await session.commit()
 
-            return new_status.scalar_one()
+            return new_status.to_dto()
 
-    async def find_one(self, status_id: int) -> StatusSchema:
+    async def find_one(self, status_id: int) -> StatusDto:
         """
         Find a status in the database.
 
@@ -41,9 +42,9 @@ class StatusDAO(AbstractDAO):
             if not status:
                 raise StatusNotFoundError()
 
-            return status
+            return status.to_dto()
 
-    async def find_all(self) -> list[StatusSchema]:
+    async def find_all(self) -> list[StatusDto]:
         """
         Find all statuses in the database.
 
@@ -52,10 +53,13 @@ class StatusDAO(AbstractDAO):
         async with async_session_maker() as session:
             stmt = select(self.model)
             statuses = await session.scalars(stmt)
-            return statuses.all()
+            if not statuses:
+                raise StatusNotFoundError
+            statuses = [status.to_dto() for status in statuses]
+            return statuses
 
     async def update_one(self, status_id: int,
-                         status_data: dict) -> StatusSchema:
+                         status_data: dict) -> StatusDto:
         """
         Update a status in the database.
 
@@ -75,9 +79,9 @@ class StatusDAO(AbstractDAO):
             if not updated_status:
                 raise StatusNotFoundError()
 
-            return updated_status
+            return updated_status.to_dto()
 
-    async def delete_one(self, status_id: int) -> StatusSchema:
+    async def delete_one(self, status_id: int) -> StatusDto:
         """
         Delete a status from the database and return deleted status.
 
@@ -95,4 +99,4 @@ class StatusDAO(AbstractDAO):
             if not deleted_status:
                 raise StatusNotFoundError()
 
-            return deleted_status
+            return deleted_status.to_dto()

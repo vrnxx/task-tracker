@@ -22,3 +22,10 @@ class StatusNotFoundError(TTrackerException):
 class TaskNotFoundError(TTrackerException):
     notify_user = 'Task not found'
 
+
+class UserNotFoundError(TTrackerException):
+    notify_user = 'User not found'
+
+
+class UserEmailNotUnique(TTrackerException):
+    notify_user = 'User with current email is already exist'

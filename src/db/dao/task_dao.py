@@ -1,15 +1,16 @@
-from sqlalchemy import select, insert, update, delete
+from sqlalchemy import delete, insert, select, update
+
 from src.db.dao.interfaces.abstract_dao import AbstractDAO
-from src.models.task import Task
 from src.db.db import async_session_maker
-from src.schemas.task_schema import TaskSchema
+from src.models.dto.task import TaskDto
+from src.models.task import Task
 from src.utils.exceptions import TaskNotFoundError
 
 
 class TaskDAO(AbstractDAO):
     model = Task
 
-    async def add_one(self, task_data: dict) -> TaskSchema:
+    async def add_one(self, task_data: dict) -> TaskDto:
         """
         Add a new task to database.
 
@@ -20,11 +21,11 @@ class TaskDAO(AbstractDAO):
             stmt = (insert(self.model).
                     values(**task_data).
                     returning(self.model))
-            res = await session.scalar(stmt)
+            new_task = await session.scalar(stmt)
             await session.commit()
-            return res
+            return new_task.to_dto()
         
-    async def find_all(self) -> list[TaskSchema]:
+    async def find_all(self) -> list[TaskDto]:
         """
         Find all tasks in database.
 
@@ -32,8 +33,8 @@ class TaskDAO(AbstractDAO):
         """
         async with async_session_maker() as session:
             stmt = select(self.model)
-            res = await session.scalars(stmt)
-            return res.all()
+            tasks = await session.scalars(stmt)
+            return [task.to_dto() for task in tasks]
         
     async def find_one(self, task_id: int):
         """
@@ -46,14 +47,15 @@ class TaskDAO(AbstractDAO):
         async with async_session_maker() as session:
             stmt = (select(self.model).
                     where(self.model.id == task_id))
-            res = await session.scalar(stmt)
-            if not res:
+            task = await session.scalar(stmt)
+            print(task)
+            if not task:
                 raise TaskNotFoundError()
 
-            return res.scalar_one()
+            return task.to_dto()
 
     async def update_one(self, task_id: int,
-                         new_data: dict) -> TaskSchema:
+                         new_data: dict) -> TaskDto:
         """
         Update one task in database.
 
@@ -67,13 +69,13 @@ class TaskDAO(AbstractDAO):
                     where(self.model.id == task_id).
                     values(**new_data).
                     returning(self.model))
-            res = await session.scalar(stmt)
+            updated_task = await session.scalar(stmt)
             await session.commit()
-            if not res:
+            if not updated_task:
                 raise TaskNotFoundError()
-            return res
+            return updated_task.to_dto()
             
-    async def delete_one(self, task_id: int) -> TaskSchema:
+    async def delete_one(self, task_id: int) -> TaskDto:
         """
         Delete one task in database and return deleted task.
 
@@ -91,4 +93,4 @@ class TaskDAO(AbstractDAO):
             if not deleted_task:
                 raise TaskNotFoundError()
 
-            return deleted_task
+            return deleted_task.to_dto()

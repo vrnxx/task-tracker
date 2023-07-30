@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 
 from src.api.dependencies import task_service
-from src.schemas.task_schema import TaskAddSchema
+from src.schemas.task_schema import TaskAddSchema, TaskSchema
 from src.services.task_service import TaskService
 
 router = APIRouter(
@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-@router.get('/{task_id}')
+@router.get('/{task_id}', response_model=TaskSchema)
 async def get_task(task_id: int,
                    task_serv: Annotated[TaskService, Depends(task_service)]):
     task = await task_serv.get_task(task_id)

@@ -1,8 +1,8 @@
-from src.db.dao.task_dao import TaskDAO
 from src.db.dao.status_dao import StatusDAO
+from src.db.dao.task_dao import TaskDAO
 from src.db.dao.user_dao import UserDAO
-from src.services.task_service import TaskService
 from src.services.status_service import TaskStatusService
+from src.services.task_service import TaskService
 from src.services.user_service import UserService
 
 
