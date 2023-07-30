@@ -8,14 +8,20 @@ from src.utils.exceptions import StatusNotFoundError
 
 
 class StatusDAO(AbstractDAO):
+    """
+    Class for management of Status-model in the database.
+
+    Implements AbstractDAO methods.
+    Returned values from methods are StatusDto instances.
+    """
     model = Status
 
     async def add_one(self, status_data: dict) -> StatusDto:
         """
-        Add a new status to the database
+        Add a new status to the database.
 
         :param status_data: status data to add
-        :return: new_status: StatusSchema
+        :return: new_status: StatusDto instance
         """
         async with async_session_maker() as session:
             stmt = (insert(self.model).
@@ -32,7 +38,7 @@ class StatusDAO(AbstractDAO):
 
         :raise: StatusNotFoundError if the status is not found.
         :param status_id: id of the status to find.
-        :return: status: StatusSchema
+        :return: status: StatusDto instance
         """
         async with async_session_maker() as session:
             stmt = (select(self.model).
@@ -48,7 +54,7 @@ class StatusDAO(AbstractDAO):
         """
         Find all statuses in the database.
 
-        :return: statuses: list[StatusSchema]
+        :return: statuses: list[StatusDto]
         """
         async with async_session_maker() as session:
             stmt = select(self.model)
@@ -66,7 +72,7 @@ class StatusDAO(AbstractDAO):
         :raise: StatusNotFoundError if the status is not found.
         :param status_id: id of the status to update.
         :param status_data: status data to update.
-        :return: updated_status: StatusSchema
+        :return: updated_status: StatusDto instance
         """
         async with async_session_maker() as session:
             stmt = (update(self.model).
@@ -87,7 +93,7 @@ class StatusDAO(AbstractDAO):
 
         :raise: StatusNotFoundError if the status is not found.
         :param status_id: id of the status to delete.
-        :return: deleted_status: StatusSchema
+        :return: deleted_status: StatusDto instance
         """
         async with async_session_maker() as session:
             stmt = (delete(self.model).

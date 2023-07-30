@@ -8,6 +8,12 @@ from src.utils.exceptions import TaskNotFoundError
 
 
 class TaskDAO(AbstractDAO):
+    """
+    Class for management of Task-model in the database.
+
+    Implements AbstractDAO methods.
+    Returned values from methods are TaskDto instances.
+    """
     model = Task
 
     async def add_one(self, task_data: dict) -> TaskDto:
@@ -15,7 +21,7 @@ class TaskDAO(AbstractDAO):
         Add a new task to database.
 
         :param task_data: dictionary
-        :return: new task: TaskSchema
+        :return: new task: TaskDto instance
         """
         async with async_session_maker() as session:
             stmt = (insert(self.model).
@@ -29,20 +35,20 @@ class TaskDAO(AbstractDAO):
         """
         Find all tasks in database.
 
-        :return: list of tasks: TaskSchema
+        :return: list of tasks: TaskDto
         """
         async with async_session_maker() as session:
             stmt = select(self.model)
             tasks = await session.scalars(stmt)
             return [task.to_dto() for task in tasks]
         
-    async def find_one(self, task_id: int):
+    async def find_one(self, task_id: int) -> TaskDto:
         """
         Find one task in database.
 
         :raise: TaskNotFoundError: if task not found
         :param task_id: number of task
-        :return: task: TaskSchema
+        :return: task: TaskDto instance
         """
         async with async_session_maker() as session:
             stmt = (select(self.model).
@@ -62,7 +68,7 @@ class TaskDAO(AbstractDAO):
         :raise: TaskNotFoundError: if task not found
         :param task_id: id of task
         :param new_data: dictionary with new data
-        :return: updated task: TaskSchema
+        :return: updated task: TaskDto instance
         """
         async with async_session_maker() as session:
             stmt = (update(self.model).
@@ -81,7 +87,7 @@ class TaskDAO(AbstractDAO):
 
         :raise: TaskNotFoundError: if task not found
         :param task_id: id of task
-        :return: deleted task: TaskSchema
+        :return: deleted task: TaskDto instance
         """
         async with async_session_maker() as session:
             stmt = (delete(self.model).
