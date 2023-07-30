@@ -48,7 +48,7 @@ class TaskDAO(AbstractDAO):
                     where(self.model.id == task_id))
             res = await session.scalar(stmt)
             if not res:
-                raise TaskNotFoundError(task_id=task_id)
+                raise TaskNotFoundError()
 
             return res.scalar_one()
 
@@ -70,7 +70,7 @@ class TaskDAO(AbstractDAO):
             res = await session.scalar(stmt)
             await session.commit()
             if not res:
-                raise TaskNotFoundError(task_id=task_id)
+                raise TaskNotFoundError()
             return res
             
     async def delete_one(self, task_id: int) -> TaskSchema:
@@ -89,6 +89,6 @@ class TaskDAO(AbstractDAO):
             deleted_task = await session.scalar(stmt)
             await session.commit()
             if not deleted_task:
-                raise TaskNotFoundError(task_id=task_id)
+                raise TaskNotFoundError()
 
             return deleted_task

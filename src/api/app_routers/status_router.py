@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 
 from src.api.dependencies import status_service
 from src.schemas.status_schema import StatusAddSchema
-from src.services.status_services import TaskStatusService
+from src.services.status_service import TaskStatusService
 
 router = APIRouter(
     prefix='/status',

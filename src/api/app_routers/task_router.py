@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 
 from src.api.dependencies import task_service
 from src.schemas.task_schema import TaskAddSchema
-from src.services.task_services import TaskService
+from src.services.task_service import TaskService
 
 router = APIRouter(
     prefix='/task',

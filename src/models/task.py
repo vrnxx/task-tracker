@@ -15,11 +15,13 @@ class Task(Base):
     title: Mapped[str] = mapped_column(nullable=False)
     description: Mapped[str] = mapped_column(nullable=True)
     time_create: Mapped[datetime] = mapped_column(default=datetime.utcnow)
-    status_id: Mapped[int] = mapped_column(ForeignKey(Status.id))
-    owner: Mapped[str] = mapped_column(nullable=True)
-    worker: Mapped[str] = mapped_column(nullable=True)
+    status_id: Mapped[int] = mapped_column(ForeignKey("task_statuses.id"))
+    owner_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    worker_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
 
     status = relationship(Status)
+    owner = relationship("User", foreign_keys=[owner_id])
+    worker = relationship("User", foreign_keys=[worker_id])
 
     def to_read_model(self) -> TaskSchema:
         return TaskSchema(

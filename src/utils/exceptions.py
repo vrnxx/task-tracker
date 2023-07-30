@@ -5,7 +5,7 @@ class TTrackerException(Exception):
     notify_user = 'Error'
 
     def __init__(self, *args, **kwargs):
-        self.message: str = f'{self.notify_user}. Details: {kwargs}'
+        self.message: str = f'{self.notify_user}.'
         super(TTrackerException, self).__init__(self.message)
 
     def __str__(self) -> str:
