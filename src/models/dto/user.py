@@ -5,5 +5,6 @@ from dataclasses import dataclass
 class UserDto:
     id: int
     username: str
+    surname: str
     email: str
 
