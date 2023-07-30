@@ -1,13 +1,4 @@
-from pydantic import BaseModel, Field
-
-
-class UserSchema(BaseModel):
-    id: int
-    username: str
-    email: str
-
-    class Config:
-        from_attributes = True
+from pydantic import BaseModel
 
 
 class UserAddSchema(BaseModel):
