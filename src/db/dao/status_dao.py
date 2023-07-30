@@ -36,7 +36,7 @@ class StatusDAO(AbstractDAO):
         """
         Find a status in the database.
 
-        :raise: StatusNotFoundError if the status is not found.
+        :raise StatusNotFoundError if the status is not found.
         :param status_id: id of the status to find.
         :return: status: StatusDto instance
         """
@@ -54,7 +54,7 @@ class StatusDAO(AbstractDAO):
         """
         Find all statuses in the database.
 
-        :return: statuses: list[StatusDto]
+        :return: statuses - list[StatusDto]
         """
         async with async_session_maker() as session:
             stmt = select(self.model)
@@ -69,7 +69,7 @@ class StatusDAO(AbstractDAO):
         """
         Update a status in the database.
 
-        :raise: StatusNotFoundError if the status is not found.
+        :raise StatusNotFoundError if the status is not found.
         :param status_id: id of the status to update.
         :param status_data: status data to update.
         :return: updated_status: StatusDto instance
@@ -91,7 +91,7 @@ class StatusDAO(AbstractDAO):
         """
         Delete a status from the database and return deleted status.
 
-        :raise: StatusNotFoundError if the status is not found.
+        :raise StatusNotFoundError if the status is not found.
         :param status_id: id of the status to delete.
         :return: deleted_status: StatusDto instance
         """

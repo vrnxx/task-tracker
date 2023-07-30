@@ -24,7 +24,8 @@ class UserDAO(AbstractDAO):
         Raise UserEmailNotUnique if entered email is
         already in the database.
 
-        :except : UserEmailNotUnique
+        :raises UserEmailNotUnique: entered email is
+        already in the database
         :param user_data: data for new user.
         :return: UserDto instance
         """
@@ -44,6 +45,7 @@ class UserDAO(AbstractDAO):
         """
         Find one user in the database and return his.
 
+        :raise UserNotFoundError: if user with user_id not found
         :param user_id: id of user to find.
         :return: UserDto instance
         """
@@ -59,6 +61,7 @@ class UserDAO(AbstractDAO):
         """
         Find all users in the database and return them.
 
+        :raise UserNotFoundError: if users not found
         :return: list of UserDto instances
         """
         async with async_session_maker() as session:

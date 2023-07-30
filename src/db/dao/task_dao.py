@@ -46,7 +46,7 @@ class TaskDAO(AbstractDAO):
         """
         Find one task in database.
 
-        :raise: TaskNotFoundError: if task not found
+        :raise TaskNotFoundError: if task not found
         :param task_id: number of task
         :return: task: TaskDto instance
         """
@@ -65,10 +65,10 @@ class TaskDAO(AbstractDAO):
         """
         Update one task in database.
 
-        :raise: TaskNotFoundError: if task not found
+        :raise TaskNotFoundError: if task not found
         :param task_id: id of task
         :param new_data: dictionary with new data
-        :return: updated task: TaskDto instance
+        :return: updated task - TaskDto instance
         """
         async with async_session_maker() as session:
             stmt = (update(self.model).
@@ -85,9 +85,9 @@ class TaskDAO(AbstractDAO):
         """
         Delete one task in database and return deleted task.
 
-        :raise: TaskNotFoundError: if task not found
+        :raise TaskNotFoundError: if task not found
         :param task_id: id of task
-        :return: deleted task: TaskDto instance
+        :return: deleted task - TaskDto instance
         """
         async with async_session_maker() as session:
             stmt = (delete(self.model).
