@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends
 from src.api.dependencies import task_service
 from src.schemas.task_schema import TaskAddSchema, TaskSchema
 from src.services.task_service import TaskService
+from src.models.dto.task import TaskDto
 
 router = APIRouter(
     prefix='/task',
@@ -19,9 +20,12 @@ async def get_task(task_id: int,
     return task
 
 
-@router.get('/')
-async def get_tasks(task_serv: Annotated[TaskService, Depends(task_service)]):
-    tasks = await task_serv.get_tasks()
+@router.get('/user_tasks/{user_id}')
+async def get_user_tasks(
+        user_id: int,
+        task_serv: Annotated[TaskService, Depends(task_service)]
+) -> list[TaskDto]:
+    tasks = await task_serv.get_user_tasks(user_id)
     return tasks
 
 

@@ -36,3 +36,20 @@ async def add_user(user_data: UserAddSchema,
     added_user = await user_service.add_user(user_data)
     return added_user
 
+
+@router.put('/{user_id}')
+async def update_user(
+        user_id: int, user_data: UserAddSchema,
+        user_service: Annotated[UserService, Depends(user_service)]
+                       ) -> UserDto:
+    updated_user = await user_service.update_user(user_id, user_data)
+    return updated_user
+
+
+@router.delete('/{user_id}')
+async def delete_user(
+        user_id: int,
+        user_service: Annotated[UserService, Depends(user_service)]
+                       ) -> UserDto:
+    deleted_user = await user_service.delete_user(user_id)
+    return deleted_user

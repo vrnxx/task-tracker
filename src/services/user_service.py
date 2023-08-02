@@ -19,3 +19,10 @@ class UserService:
         new_user = await self.user_dao.add_one(user.model_dump())
         return new_user
 
+    async def update_user(self, user_id: int, new_data: UserAddSchema) -> UserDto:
+        updated_user = await self.user_dao.update_one(user_id, new_data.model_dump())
+        return updated_user
+
+    async def delete_user(self, user_id: int) -> UserDto:
+        deleted_user = await self.user_dao.delete_one(user_id)
+        return deleted_user

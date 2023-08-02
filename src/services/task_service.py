@@ -6,8 +6,8 @@ class TaskService:
     def __init__(self, task_dao: AbstractDAO):
         self.task_dao: AbstractDAO = task_dao()
 
-    async def get_tasks(self):
-        tasks = await self.task_dao.find_all()
+    async def get_user_tasks(self, user_id: int):
+        tasks = await self.task_dao.find_all(user_id)
         return tasks
 
     async def get_task(self, task_id: int):

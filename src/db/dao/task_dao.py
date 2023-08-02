@@ -31,14 +31,15 @@ class TaskDAO(AbstractDAO):
             await session.commit()
             return new_task.to_dto()
         
-    async def find_all(self) -> list[TaskDto]:
+    async def find_all(self, user_id: int) -> list[TaskDto]:
         """
-        Find all tasks in database.
+        Find all tasks of specify user by user_id in database.
 
         :return: list of tasks: TaskDto
         """
         async with async_session_maker() as session:
-            stmt = select(self.model)
+            stmt = (select(self.model).
+                    filter(self.model.worker_id == user_id))
             tasks = await session.scalars(stmt)
             return [task.to_dto() for task in tasks]
         

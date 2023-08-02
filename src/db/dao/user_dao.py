@@ -72,24 +72,35 @@ class UserDAO(AbstractDAO):
             users = [user.to_dto() for user in users]
             return users
 
-    async def update_one(self, *args, **kwargs):
+    async def update_one(self, user_id: int, user_data: dict) -> UserDto:
         """
-        Now it is moc-method.
-        :param args:
-        :param kwargs:
-        :return:
-        """
-        async with async_session_maker() as session:
-            print('update_one')
-            return True
+        Update user data by user_id
 
-    async def delete_one(self, *args, **kwargs):
-        """
-        Now it is moc-method.
-        :param args:
-        :param kwargs:
-        :return:
+        :param user_data:
+        :param user_id:
+        :return: UserDto instance
         """
         async with async_session_maker() as session:
-            print('delete_one')
-            return True
+            stmt = (update(self.model).
+                    values(**user_data).
+                    where(self.model.id == user_id).
+                    returning(self.model))
+            updated_data = await session.scalar(stmt)
+            await session.commit()
+            return updated_data.to_dto()
+
+    async def delete_one(self, user_id: int) -> UserDto:
+        """
+        Delete user by user_id.
+
+        :param user_id: id of user to delete
+        :return: UserDto instance
+        """
+        async with async_session_maker() as session:
+            stmt = (delete(self.model).
+                    where(self.model.id == user_id).
+                    returning(self.model))
+            deleted_user = await session.scalar(stmt)
+            await session.commit()
+
+            return deleted_user.to_dto()
