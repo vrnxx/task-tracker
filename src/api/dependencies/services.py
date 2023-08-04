@@ -8,7 +8,7 @@ from src.db.dao.user_dao import UserDAO
 from src.services.status_service import TaskStatusService
 from src.services.task_service import TaskService
 from src.services.user_service import UserService
-from src.api.dependencies.db import DBProvider, dao_provider
+from src.api.dependencies.db import DbProvider, dao_provider
 from src.db.holder import HolderDAO
 
 
