@@ -29,8 +29,9 @@ class TaskService:
         task = await self.task_dao.find_one_by_id(task_id)
         return task
 
-    async def update_task(self, task_id: int,
-                          task_data: TaskAddSchema) -> TaskDto:
+    async def update_task(
+        self, task_id: int, task_data: TaskAddSchema
+    ) -> TaskDto:
         try:
             updated_task = await self.task_dao.update_one(
                 task_id, task_data.model_dump()

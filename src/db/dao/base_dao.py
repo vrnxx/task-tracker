@@ -14,9 +14,9 @@ class BaseDAO(Generic[Model]):
         self.model = model
         self.session = session
 
-    async def _get_all(self,
-                       options: Sequence[ORMOption] = tuple()
-                       ) -> Sequence[Model]:
+    async def _get_all(
+        self, options: Sequence[ORMOption] = tuple()
+    ) -> Sequence[Model]:
         stmt = select(self.model).options(*options)
         result: ScalarResult[Model] = await self.session.scalars(stmt)
         return result

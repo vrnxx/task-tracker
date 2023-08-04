@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v2.0.1
+    hooks:
+      - id: autopep8
+        args: ["-i", "--in-place", "--max-line-length=80"]
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+        language_version: python3.11
+        args: ["--line-length=80"]

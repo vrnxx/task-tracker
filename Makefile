@@ -4,3 +4,6 @@ down-db:
 	docker-compose -f docker-compose-dev.yaml down && docker network prune --force
 start-app:
 	cd src && python __main__.py
+format:
+	isort .
+	flake8 . --count --show-source --statistics --max-line-length 120

@@ -36,11 +36,13 @@ class UserService:
 
         return new_user
 
-    async def update_user(self, user_id: int,
-                          new_data: UserAddSchema) -> UserDto:
+    async def update_user(
+        self, user_id: int, new_data: UserAddSchema
+    ) -> UserDto:
         try:
             updated_user = await self.user_dao.update_one(
-                user_id, new_data.model_dump())
+                user_id, new_data.model_dump()
+            )
 
             await self.user_dao.session.commit()
         except IntegrityError:
