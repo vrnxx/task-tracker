@@ -42,9 +42,11 @@ class TaskDAO(BaseDAO[Task]):
 
     @task_exception_mapper
     async def delete_one(self, task_id: int) -> TaskDto:
-        stmt = (delete(self.model).
-                where(self.model.id == task_id).
-                returning(self.model))
+        stmt = (
+            delete(self.model)
+            .where(self.model.id == task_id)
+            .returning(self.model)
+        )
         deleted_task = await self.session.scalar(stmt)
 
         return deleted_task.to_dto()

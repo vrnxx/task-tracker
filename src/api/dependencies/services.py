@@ -9,16 +9,19 @@ from src.services.task_service import TaskService
 from src.services.user_service import UserService
 
 
-def task_service(dao: Annotated[HolderDAO, Depends(dao_provider)]
-                 ) -> TaskService:
+def task_service(
+    dao: Annotated[HolderDAO, Depends(dao_provider)]
+) -> TaskService:
     return TaskService(dao)
 
 
-def status_service(dao: Annotated[HolderDAO, Depends(dao_provider)]
-                   ) -> StatusService:
+def status_service(
+    dao: Annotated[HolderDAO, Depends(dao_provider)]
+) -> StatusService:
     return StatusService(dao)
 
 
-def user_service(dao: Annotated[HolderDAO, Depends(dao_provider)]
-                 ) -> UserService:
+def user_service(
+    dao: Annotated[HolderDAO, Depends(dao_provider)]
+) -> UserService:
     return UserService(dao)

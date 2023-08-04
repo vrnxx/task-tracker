@@ -7,6 +7,8 @@ from src.schemas.task_schema import TaskAddSchema
 
 
 class TaskService:
+    """fldsfkds;lfkdsf;ldsfk;ldskf;ldskf;dsl;fkdsl;fkdsf;lkdsf131231l;kfds;lfkdsl;fkds;lkfds;lfkds;lkdsf;lk;l;ldskf;lsfdsklds;dsk;ldskds;ldskf;lds"""
+
     def __init__(self, dao: HolderDAO):
         self.task_dao: TaskDAO = dao.task
 
@@ -29,8 +31,9 @@ class TaskService:
         task = await self.task_dao.find_one_by_id(task_id)
         return task
 
-    async def update_task(self, task_id: int,
-                          task_data: TaskAddSchema) -> TaskDto:
+    async def update_task(
+        self, task_id: int, task_data: TaskAddSchema
+    ) -> TaskDto:
         try:
             updated_task = await self.task_dao.update_one(
                 task_id, task_data.model_dump()

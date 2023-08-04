@@ -29,7 +29,7 @@ async def get_task_by_id(
 @router.post("/")
 async def add_new_task(
     task_data: TaskAddSchema,
-    task_serv: Annotated[TaskService, Depends(task_service)]
+    task_serv: Annotated[TaskService, Depends(task_service)],
 ) -> TaskDto:
     added_task = await task_serv.add_new_task(task_data)
     return added_task

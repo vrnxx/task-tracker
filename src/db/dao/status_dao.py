@@ -27,8 +27,9 @@ class StatusDAO(BaseDAO):
         return added_status.to_dto()
 
     @status_exception_mapper
-    async def update_one(self, status_id: int,
-                         new_status_data: dict) -> StatusDto:
+    async def update_one(
+        self, status_id: int, new_status_data: dict
+    ) -> StatusDto:
         stmt = (
             update(self.model)
             .where(self.model.id == status_id)
@@ -41,9 +42,9 @@ class StatusDAO(BaseDAO):
     @status_exception_mapper
     async def delete_one(self, status_id: int) -> StatusDto:
         stmt = (
-            delete(self.model).
-            where(self.model.id == status_id).
-            returning(self.model)
+            delete(self.model)
+            .where(self.model.id == status_id)
+            .returning(self.model)
         )
         deleted_task = await self.session.scalar(stmt)
         return deleted_task.to_dto()

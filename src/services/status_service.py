@@ -37,12 +37,14 @@ class StatusService:
             raise exc
         return deleted_status
 
-    async def update_status(self, status_id: int,
-                            status: StatusAddSchema) -> StatusDto:
+    async def update_status(
+        self, status_id: int, status: StatusAddSchema
+    ) -> StatusDto:
         status_dict = status.model_dump()
         try:
-            updated_status = await self.status_dao.update_one(status_id,
-                                                              status_dict)
+            updated_status = await self.status_dao.update_one(
+                status_id, status_dict
+            )
             await self.status_dao.session.commit()
         except SQLAlchemyError as exc:
             await self.status_dao.session.rollback()
