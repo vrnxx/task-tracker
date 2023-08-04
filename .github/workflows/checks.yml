@@ -20,6 +20,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install
+      - name: Run black --check .
+        run:
+          poetry run black .
       - name: Run flake8
-        run: poetry run flake8 .
+        run:
+          poetry run flake8 .
+      - name: Run isort
+        run:
+          poetry run isort .
 
