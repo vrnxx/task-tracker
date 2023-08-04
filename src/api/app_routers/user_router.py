@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends
 
-from src.api.dependencies import user_service
+from src.api.dependencies.services import user_service
 from src.models.dto.user import UserDto
 from src.schemas.user_schema import UserAddSchema
 from src.services.user_service import UserService
