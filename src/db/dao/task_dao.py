@@ -8,6 +8,10 @@ from src.utils.exceptions.exc_mappers import task_exception_mapper
 
 
 class TaskDAO(BaseDAO[Task]):
+    """
+    Class for Task model manage
+    """
+
     def __init__(self, session: AsyncSession):
         super().__init__(model=Task, session=session)
 
