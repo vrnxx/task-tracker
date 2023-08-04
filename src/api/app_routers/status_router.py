@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends
 
-from src.api.dependencies import status_service
+from src.api.dependencies.services import status_service
 from src.models.dto.status import StatusDto
 from src.schemas.status_schema import StatusAddSchema
 from src.services.status_service import TaskStatusService

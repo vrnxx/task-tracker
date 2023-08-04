@@ -3,4 +3,4 @@ up-db:
 down-db:
 	docker-compose -f docker-compose-dev.yaml down && docker network prune --force
 start-app:
-	cd src && python main.py
+	cd src && python __main__.py
