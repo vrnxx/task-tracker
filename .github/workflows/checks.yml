@@ -26,4 +26,8 @@ jobs:
           pre-commit install
           cd src
           pre-commit run --all-files
+      - name: Run flake8
+        run:
+          cd src
+          poetry run flake8 .
 
