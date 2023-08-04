@@ -1,4 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+
 from src.db.holder import HolderDAO
 
 
@@ -6,7 +7,7 @@ def dao_provider() -> HolderDAO:
     raise NotImplementedError
 
 
-class DBProvider:
+class DbProvider:
     def __init__(self, pool: async_sessionmaker[AsyncSession]):
         self.pool = pool
 

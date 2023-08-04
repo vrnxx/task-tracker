@@ -6,4 +6,3 @@ class UserAddSchema(BaseModel):
     surname: str
     email: str
     hashed_password: str
-

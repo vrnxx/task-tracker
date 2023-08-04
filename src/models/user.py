@@ -5,7 +5,7 @@ from src.models.dto.user import UserDto
 
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     username: Mapped[str]
@@ -15,8 +15,7 @@ class User(Base):
 
     def to_dto(self) -> UserDto:
         return UserDto(
-            id=self.id,
-            username=self.username,
+            id=self.id, username=self.username,
             surname=self.surname,
             email=self.email
         )
