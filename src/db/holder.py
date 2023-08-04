@@ -1,4 +1,4 @@
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.db.dao.status_dao import StatusDAO
 from src.db.dao.task_dao import TaskDAO
@@ -10,8 +10,7 @@ class HolderDAO:
         self.session = session
         self.task = TaskDAO(session)
         self.status = StatusDAO(session)
-        # self.user = UserDAO(session)
+        self.user = UserDAO(session)
 
     async def commit(self):
         await self.session.commit()
-

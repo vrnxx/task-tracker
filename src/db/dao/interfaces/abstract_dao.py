@@ -9,6 +9,7 @@ class AbstractDAO(ABC):
     you need to inherit from this class and set a model attribute
     to you model class.
     """
+
     model = None
 
     @abstractmethod

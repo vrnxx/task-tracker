@@ -7,4 +7,3 @@ class UserDto:
     username: str
     surname: str
     email: str
-

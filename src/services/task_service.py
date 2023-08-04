@@ -26,14 +26,15 @@ class TaskService:
         return tasks
 
     async def get_task_by_id(self, task_id: int) -> TaskDto:
-        task = await self.task_dao.find_by_id(task_id)
+        task = await self.task_dao.find_one_by_id(task_id)
         return task
 
     async def update_task(self, task_id: int,
                           task_data: TaskAddSchema) -> TaskDto:
         try:
             updated_task = await self.task_dao.update_one(
-                task_id, task_data.model_dump())
+                task_id, task_data.model_dump()
+            )
 
             await self.task_dao.session.commit()
         except SQLAlchemyError as exc:

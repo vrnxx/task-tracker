@@ -9,7 +9,7 @@ Func = Callable[Param, ReturnType]
 
 
 def task_exception_mapper(
-        func: Callable[Param, Coroutine[Any, Any, ReturnType]]
+    func: Callable[Param, Coroutine[Any, Any, ReturnType]]
 ) -> Callable[Param, Coroutine[Any, Any, ReturnType]]:
     @wraps(func)
     async def wrapped(*args: Param.args, **kwargs: Param.kwargs) -> ReturnType:
@@ -22,7 +22,7 @@ def task_exception_mapper(
 
 
 def status_exception_mapper(
-        func: Callable[Param, Coroutine[Any, Any, ReturnType]]
+    func: Callable[Param, Coroutine[Any, Any, ReturnType]]
 ) -> Callable[Param, Coroutine[Any, Any, ReturnType]]:
     @wraps(func)
     async def wrapped(*args: Param.args, **kwargs: Param.kwargs) -> ReturnType:
@@ -30,5 +30,18 @@ def status_exception_mapper(
             return await func(*args, **kwargs)
         except AttributeError:
             raise exceptions.StatusNotFoundError
+
+    return wrapped
+
+
+def user_exception_mapper(
+    func: Callable[Param, Coroutine[Any, Any, ReturnType]]
+) -> Callable[Param, Coroutine[Any, Any, ReturnType]]:
+    @wraps(func)
+    async def wrapped(*args: Param.args, **kwargs: Param.kwargs) -> ReturnType:
+        try:
+            return await func(*args, **kwargs)
+        except AttributeError:
+            raise exceptions.UserNotFoundError
 
     return wrapped

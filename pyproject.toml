@@ -6,6 +6,9 @@ authors = ["Alexander Seryakov <seryakov78116@gmail.com>"]
 readme = "README.md"
 packages = [{include = "src"}]
 
+[tool.poetry.scripts]
+ttracker-app = 'src.__main__:run'
+
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = {extras = ["all"], version = "^0.100.0"}
@@ -13,11 +16,14 @@ sqlalchemy = "^2.0.19"
 alembic = "^1.11.1"
 asyncpg = "^0.28.0"
 python-dotenv = "^1.0.0"
+black = "^23.7.0"
 
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.12.0"
+flake8 = "^6.1.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+

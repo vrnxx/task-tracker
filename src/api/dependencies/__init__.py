@@ -8,4 +8,3 @@ def setup(app: FastAPI, pool: async_sessionmaker[AsyncSession]):
     db_provider = DbProvider(pool=pool)
 
     app.dependency_overrides[dao_provider] = db_provider.dao
-

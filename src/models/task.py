@@ -31,5 +31,5 @@ class Task(Base):
             time_create=self.time_create,
             status_id=self.status_id,
             owner_id=self.owner_id,
-            worker_id=self.worker_id
+            worker_id=self.worker_id,
         )
