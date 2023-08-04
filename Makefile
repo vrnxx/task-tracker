@@ -3,7 +3,8 @@ up-db:
 down-db:
 	docker-compose -f docker-compose-dev.yaml down && docker network prune --force
 start-app:
-	cd src && python __main__.py
+	python -m src
 format:
 	isort .
-	flake8 . --count --show-source --statistics --max-line-length 120
+	black . --line-length=80
+	flake8 . --count --show-source --statistics --max-line-length 80
