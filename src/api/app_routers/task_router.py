@@ -3,9 +3,9 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 
 from src.api.dependencies.services import task_service
+from src.models.dto.task import TaskDto
 from src.schemas.task_schema import TaskAddSchema
 from src.services.task_service import TaskService
-from src.models.dto.task import TaskDto
 
 router = APIRouter(
     prefix='/task',

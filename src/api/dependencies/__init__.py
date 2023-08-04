@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+
 from src.api.dependencies.db import DbProvider, dao_provider
 
 

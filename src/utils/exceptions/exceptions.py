@@ -15,6 +15,10 @@ class TTrackerException(Exception):
         return f'Exception: {self.__class__}. Message: {self.message}'
 
 
+class AlchemyError(TTrackerException):
+    notify_user = 'Unknown error, please, try again later'
+
+
 class StatusNotFoundError(TTrackerException):
     notify_user = 'Status not found'
 

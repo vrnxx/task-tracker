@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 
-from src.api import dependencies, app_routers
+from src.api import app_routers, dependencies
 from src.db.db import async_session_maker
 from src.utils import exceptions
 
