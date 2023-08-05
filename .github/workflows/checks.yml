@@ -20,6 +20,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install
+      - name: Run isort
+        run:
+          poetry run isort src
       - name: Run flake8
         run:
           poetry run flake8 src

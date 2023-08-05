@@ -1,9 +1,16 @@
 up-db:
 	docker-compose -f docker-compose-dev.yaml up -d
 down-db:
-	docker-compose -f docker-compose-dev.yaml down && docker network prune --force
+	docker-compose -f docker-compose-dev.yaml down
+up-test_db:
+	docker-compose -f docker-compose-test.yaml up -d
+down-test_db:
+	docker-compose -f docker-compose-test.yaml down
 start-app:
-	cd src && python __main__.py
+	python -m src
 format:
 	isort .
-	flake8 . --count --show-source --statistics --max-line-length 120
+	black . --line-length=80
+	flake8 . --count --show-source --statistics --max-line-length 80
+
+#&& docker network prune --force
