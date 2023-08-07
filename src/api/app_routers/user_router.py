@@ -29,7 +29,7 @@ async def get_users(
     return users
 
 
-@router.post("/")
+@router.post("/", status_code=201)
 async def add_user(
     user_data: UserAddSchema,
     user_service: Annotated[UserService, Depends(user_service)],
