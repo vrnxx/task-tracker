@@ -3,7 +3,6 @@ test.env
 
 .venv/
 .idea/
-versions/
 db_data/
 
 *cache*

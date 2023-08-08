@@ -1,23 +1,20 @@
 from httpx import AsyncClient
-from sqlalchemy import insert, select
-
-from src.models import dto
-from src.models.status import Status
-from tests.conftest import ac, async_session_maker
 
 
-async def test_add_status():
-    async with async_session_maker() as session:
-        stmt = insert(Status).values(id=1, title="test_status")
-        await session.execute(stmt)
-        await session.commit()
+async def test_add_status(ac: AsyncClient):
+    response = await ac.post(
+        "/status/",
+        json={
+            "title": "test_open_status",
+        },
+    )
+    data = response.json()
 
-        query = select(Status)
-        res = await session.scalar(query)
-
-        assert res.to_dto() == dto.StatusDto(
-            id=1, title="test_status"
-        ), "Статус не добавлен"
+    assert response.status_code == 201, "Response status code must be 201"
+    assert data["id"] == 1, "Incorrect id from response data"
+    assert (
+        data["title"] == "test_open_status"
+    ), "Incorrect title from response data"
 
 
 async def test_add_new_user(ac: AsyncClient):
@@ -30,4 +27,16 @@ async def test_add_new_user(ac: AsyncClient):
             "hashed_password": "12345Test",
         },
     )
-    print(response)
+    data = response.json()
+
+    assert response.status_code == 201, "Response status code must be 201"
+    assert data["id"] == 1, "Incorrect response data"
+    assert (
+        data["username"] == "test_user"
+    ), "Incorrect username from response data"
+    assert (
+        data["surname"] == "test_surname"
+    ), "Incorrect surname from response data"
+    assert (
+        data["email"] == "test@gmail.com"
+    ), "Incorrect email from response data"
