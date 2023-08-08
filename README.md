@@ -3,6 +3,8 @@
 ![Static Badge](https://img.shields.io/badge/fastapi-0.101.0-rgb(77%2C%20163%2C%20144))
 ![Static Badge](https://img.shields.io/badge/sqlalchemy-2.0-rgb(74%2C%2091%2C%20161))
 ![Static Badge](https://img.shields.io/badge/pydantic-2.1-rgb(176%2C%2035%2C%2073))
+![Static Badge](https://img.shields.io/badge/alembic-1.11.1-green)
+
 
 
 
@@ -15,6 +17,7 @@ Simple service of FastAPI that implement patterns like a UoW, DAO, DTO ect.
 - SQLAlchemy
 - Pydantic
 - PostgreSQL
+- Alembic
 
 # Installation
 
